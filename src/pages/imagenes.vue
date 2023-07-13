@@ -80,7 +80,11 @@ export default {
   methods: {
     getImagenes() {
       axios
-        .get(Constants.URL_BACK + '/imagen/' + localStorage.getItem('id'))
+        .get(Constants.URL_BACK + '/imagen/' + localStorage.getItem('id'), {
+          headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+        })
         .then(res => {
           this.imagenes = res.data.imagenes
         })
