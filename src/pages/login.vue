@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import logoT from '@/assets/images/logos/t.svg?raw'
 import authV1MaskDark from '@/assets/images/pages/auth-v1-mask-dark.png'
 import authV1MaskLight from '@/assets/images/pages/auth-v1-mask-light.png'
 import authV1Tree2 from '@/assets/images/pages/auth-v1-tree-2.png'
 import authV1Tree from '@/assets/images/pages/auth-v1-tree.png'
-import logo from '@/assets/logo.svg?raw'
 import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
 
 import { computed, ref } from 'vue'
@@ -29,15 +29,23 @@ const isPasswordVisible = ref(false)
       class="auth-card pa-4 pt-7"
       max-width="448"
     >
+      <v-alert
+          v-if="message_b"
+          type="success"
+          title="Alerta"
+          :text="message"
+        ></v-alert>
       <VCardItem class="justify-center">
+        
+
         <template #prepend>
           <div class="d-flex">
-            <div v-html="logo" />
+            <div v-html="logoT" />
           </div>
         </template>
 
         <VCardTitle class="font-weight-semibold text-2xl text-uppercase">
-          Materio
+          STARLINE
         </VCardTitle>
       </VCardItem>
 
@@ -176,6 +184,7 @@ import Constants from './Constants'
         password: "",
         error: false, 
         message: "",
+        message_b: false,
         url: Constants.URL_BACK,
       }
     },
@@ -199,7 +208,13 @@ import Constants from './Constants'
           console.log(res.data.status)
         });
       }
-    }
-
+    },
+    created() {
+      if (localStorage.getItem('registered') == '1') {
+        this.message_b = true;
+        this.message = "Registrado correctamente.";
+        localStorage.removeItem('registered');
+      }
+    },
   }
 </script>

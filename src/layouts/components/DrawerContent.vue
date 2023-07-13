@@ -127,7 +127,7 @@ const upgradeBanner = computed(() => {
 
       <v-expansion-panel>
         <v-expansion-panel-title>
-          <span class="nav-item-title"> Gestión de Recursos</span>
+          <span class="nav-item-title"> Gestión de Creación</span>
         </v-expansion-panel-title>
         <v-expansion-panel-text>
           <VerticalNavLink

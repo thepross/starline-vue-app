@@ -1,4 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+
+import e1 from '@/assets/images/pages/estilo1.jpg';
+import e2 from '@/assets/images/pages/estilo2.jpg';
+import e3 from '@/assets/images/pages/estilo3.jpg';
+</script>
 
 <template>
   <VRow>
@@ -54,7 +59,6 @@
                       v-model="addForm.texto3"
                       :counter="20"
                       label="Titulo Opcional"
-                      required
                     ></v-text-field>
                   </v-container>
                 </VCard>
@@ -305,30 +309,40 @@
                 cols="12"
                 md="4"
               >
+
                 <VCard title="Estilos">
-                  <VCardText> Aqui van los estilos de las imagenes </VCardText>
+                  <VCardText> Aqui se muestran los estilos de las imagenes, selecciona alguno:</VCardText>
                   <v-container>
                     <v-row>
                       <v-col>
-                        <v-radio-group>
-                          <v-radio
-                            label="Cartel Informativo"
-                            value="1"
-                          ></v-radio>
-                          <v-radio
-                            label="Realista"
-                            value="2"
-                          ></v-radio>
-                          <v-radio
-                            label="Moderno"
-                            value="3"
-                          ></v-radio>
-                        </v-radio-group>
-
+                        <v-card>
+                          <v-list lines="one" v-model="acti">
+                            <v-list-item v-for="(item,idx) in items" 
+                              @click="toggleActive(idx)" 
+                              :class="{active: acti===idx}" 
+                              :key="item.title">
+                              <v-list-item-content>
+                                <v-row>
+                                  <v-col :cols="3">
+                                  <VImg
+                                    :src="item.image"
+                                    max-height="60"
+                                    cover
+                                  />
+                                </v-col>
+                                <v-col :cols="9">
+                                  <v-list-item-title v-text="item.title"></v-list-item-title>
+                                  <v-list-item-subtitle v-text="item.subtitle"></v-list-item-subtitle>
+                                </v-col>
+                                </v-row>
+                              </v-list-item-content>
+                            </v-list-item>
+                          </v-list>
+                        </v-card>
                         <v-btn
                           class="ma-4"
                           type="submit"
-                          >Enviar</v-btn
+                          >Generar</v-btn
                         >
                         <v-btn
                           class="ma-4"
@@ -391,9 +405,51 @@ export default {
     loadImagen3: true,
     loadImagen4: true,
     rating: 1,
+
+        model: 0,
+        selected: -1,
+        isLoading: true,
+        bool: true,
+        isActive: false,
+        activeItems: [] as number[],
+        acti: -1,
+        items: [
+          {
+            icon: "print",
+            iconClass: "grey lighten-1 white--text",
+            title: "Cartel Informativo",
+            subtitle: "Para mostrar la información necesaria.",
+            image: e1,
+          },
+          {
+            icon: "email",
+            iconClass: "grey lighten-1 white--text",
+            title: "Realista",
+            subtitle: "Para fondos mas realistas.",
+            image: e2,
+          },
+          {
+            icon: "mdi-fax",
+            iconClass: "grey lighten-1 white--text",
+            title: "Moderno",
+            subtitle: "Para estilos modernos en los detalles.",
+            image: e3,
+          },
+        ]
   }),
 
   methods: {
+
+    changeColor() {
+      this.isLoading = !this.isLoading;
+    },
+    toggleActive(idx: any) {
+      // let pos = this.activeItems.indexOf(idx)
+      this.acti === idx ? this.acti = -1 : this.acti = idx;
+      console.log(this.acti)
+            // pos === -1 ? this.activeItems.push(idx) : this.activeItems.splice(pos,1)
+    },
+
     selectImagen1(event : any) {
       this.progress = 0
       this.addForm.imagen1 = event.target.files[0]
@@ -424,6 +480,9 @@ export default {
     },
 
     async submit() {
+      if (this.acti == -1) {
+        return 
+      }
       this.imagenB1 = ""
       this.imagenB2 = ""
       this.imagenB3 = ""
@@ -440,6 +499,7 @@ export default {
       formData.append('imagen1', this.addForm.imagen1)
       formData.append('imagen2', this.addForm.imagen2)
       formData.append('imagen3', this.addForm.imagen3)
+      
       // console.log(formData.get('imagen1'))
 
       let id_generacion = 0;
@@ -458,6 +518,7 @@ export default {
 
         let payload = new FormData()
         payload.append('id_generacion', id_generacion + "")
+        payload.append('estilo', this.acti + "")
       for (let index = 1; index <= 4; index++) {
         const result2 = await axios
           .post(Constants.URL_BACK + '/generar/', payload, {
@@ -517,3 +578,21 @@ export default {
   },
 }
 </script>
+
+
+<style>
+.bg-active {
+  background-color: black;
+  color : white !important;
+}
+.active {
+  background: #9155FD;
+  color: #ffffff;
+}
+.is-green {
+  background: #c9c9c9 !important;
+}
+.is-gray {
+  background: #505050 !important;
+}
+</style>

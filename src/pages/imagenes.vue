@@ -80,7 +80,7 @@ export default {
   methods: {
     getImagenes() {
       axios
-        .get(Constants.URL_BACK + '/imagen/')
+        .get(Constants.URL_BACK + '/imagen/' + localStorage.getItem('id'))
         .then(res => {
           this.imagenes = res.data.imagenes
         })
@@ -95,7 +95,8 @@ export default {
       a.click()
     },
     mostrar(id: number) {
-      this.$router.push('/imagen/show/' + id);
+      localStorage.id_imagen = id
+      this.$router.push('/rating');
     },
   },
   created() {

@@ -1,11 +1,13 @@
-<script setup>
-import { useTheme } from 'vuetify'
-import logo from '@/assets/logo.svg?raw'
-import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
+<script setup lang="ts">
+import logoT from '@/assets/images/logos/t.svg?raw'
 import authV1MaskDark from '@/assets/images/pages/auth-v1-mask-dark.png'
 import authV1MaskLight from '@/assets/images/pages/auth-v1-mask-light.png'
 import authV1Tree2 from '@/assets/images/pages/auth-v1-tree-2.png'
 import authV1Tree from '@/assets/images/pages/auth-v1-tree.png'
+import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
+
+import { computed, ref } from 'vue'
+import { useTheme } from 'vuetify'
 
 const form = ref({
   username: '',
@@ -29,39 +31,39 @@ const isPasswordVisible = ref(false)
       <VCardItem class="justify-center">
         <template #prepend>
           <div class="d-flex">
-            <div v-html="logo" />
+            <div v-html="logoT" />
           </div>
         </template>
 
         <VCardTitle class="font-weight-semibold text-2xl text-uppercase">
-          Materio
+          STARLINE
         </VCardTitle>
       </VCardItem>
 
       <VCardText class="pt-2">
         <h5 class="text-h5 font-weight-semibold mb-1">
-          Adventure starts here 🚀
+          Crea tu cuenta para poder empezar!
         </h5>
         <p class="mb-0">
-          Make your app management easy and fun!
+          Empieza a crear imagenes, afiches o posters.
         </p>
       </VCardText>
 
       <VCardText>
-        <VForm @submit.prevent="() => {}">
+        <VForm @submit.prevent="register">
           <VRow>
             <!-- Username -->
             <VCol cols="12">
               <VTextField
-                v-model="form.username"
-                label="Username"
+                v-model="username"
+                label="Nombre de Usuario"
               />
             </VCol>
             <!-- email -->
             <VCol cols="12">
               <VTextField
-                v-model="form.email"
-                label="Email"
+                v-model="email"
+                label="Correo"
                 type="email"
               />
             </VCol>
@@ -69,8 +71,8 @@ const isPasswordVisible = ref(false)
             <!-- password -->
             <VCol cols="12">
               <VTextField
-                v-model="form.password"
-                label="Password"
+                v-model="password"
+                label="Contraseña"
                 :type="isPasswordVisible ? 'text' : 'password'"
                 :append-inner-icon="isPasswordVisible ? 'mdi-eye-off-outline' : 'mdi-eye-outline'"
                 @click:append-inner="isPasswordVisible = !isPasswordVisible"
@@ -83,13 +85,13 @@ const isPasswordVisible = ref(false)
                 />
                 <VLabel
                   for="privacy-policy"
-                  style="opacity: 1;"
+                  style="opacity: 2;"
                 >
-                  <span class="me-1">I agree to</span>
+                  <span class="me-1">Estoy de acuerdo con la </span>
                   <a
                     href="javascript:void(0)"
                     class="text-primary"
-                  >privacy policy & terms</a>
+                  >politica de p/t</a>
                 </VLabel>
               </div>
 
@@ -97,7 +99,7 @@ const isPasswordVisible = ref(false)
                 block
                 type="submit"
               >
-                Sign up
+                Registrarse
               </VBtn>
             </VCol>
 
@@ -106,12 +108,12 @@ const isPasswordVisible = ref(false)
               cols="12"
               class="text-center text-base"
             >
-              <span>Already have an account?</span>
+              <span>¿Ya tienes una cuenta?</span>
               <RouterLink
                 class="text-primary ms-2"
                 to="login"
               >
-                Sign in instead
+                Inicia Sesión
               </RouterLink>
             </VCol>
 
@@ -120,7 +122,7 @@ const isPasswordVisible = ref(false)
               class="d-flex align-center"
             >
               <VDivider />
-              <span class="mx-4">or</span>
+              <span class="mx-4">ó</span>
               <VDivider />
             </VCol>
 
@@ -164,3 +166,53 @@ const isPasswordVisible = ref(false)
 meta:
   layout: blank
 </route>
+
+
+<script lang="ts">
+
+import axios from 'axios'
+import Constants from './Constants'
+
+  export default {
+    name: 'Register',
+    components: {
+
+    },
+    data() {
+      return {
+        username: '',
+        email: '',
+        password: '',
+        privacyPolicies: false,
+        error: false, 
+        message: "",
+        url: Constants.URL_BACK,
+      }
+    },
+    methods: {
+      register() {
+        let payload = {
+          "user": this.username,
+          "password": this.password,
+          "email": this.email,
+        };
+        console.log(payload)
+        axios.post(this.url + "/register", payload)
+        .then((res) => {
+          if (res.data.status == "ok") {
+            localStorage.registered = 1
+            // localStorage.id = res.data.user.id;
+            // localStorage.user = res.data.user.username;
+            // localStorage.token = res.data.token;
+            this.$router.push('/login');
+          } else {
+            this.error = true;
+            this.message = res.data.mensaje;
+          }
+          console.log(res.data.status)
+        });
+      }
+    }
+
+  }
+</script>
