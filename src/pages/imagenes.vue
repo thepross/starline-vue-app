@@ -68,7 +68,7 @@ import axios from 'axios';
 import Constants from './Constants';
 
 export default {
-  data() {
+  data: function() {
     return {
       titulos: ['ID', 'ID Generacion', 'Ruta', 'Nombre', 'Tamaño'],
       imagenes: [{ id: 0, ruta: '', nombre: '', size: '', id_generacion: 0, image: '' }],

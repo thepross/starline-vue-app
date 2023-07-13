@@ -178,11 +178,11 @@ import Constants from './Constants'
     components: {
 
     },
-    data() {
+    data: function() {
       return {
-        username: '',
-        email: '',
-        password: '',
+        username: "",
+        email: "",
+        password: "",
         privacyPolicies: false,
         error: false, 
         message: "",
