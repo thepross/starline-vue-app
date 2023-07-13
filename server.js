@@ -12,6 +12,9 @@ const allowedOrigins = [
     'http://localhost',
     'http://localhost:8080',
     'http://localhost:8100',
+    'http://localhost:5000',
+    'https://boiling-stream-56078-74a8b7e826b3.herokuapp.com/',
+
   ];
 
   // Reflect the origin if it's in the allowed list or not defined (cURL, Postman, etc.)
