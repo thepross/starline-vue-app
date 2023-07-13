@@ -150,13 +150,10 @@ const upgradeBanner = computed(() => {
 
     </v-expansion-panels>
 
-    <VerticalNavSectionTitle :item="{ heading: 'Otros' }" />
+    <!-- <VerticalNavSectionTitle :item="{ heading: 'Otros' }" />
     
 
     <v-expansion-panels>
-
-    
-      
       <v-expansion-panel>
         <v-expansion-panel-title>
           <span class="nav-item-title"> Otros</span>
@@ -199,7 +196,7 @@ const upgradeBanner = computed(() => {
           />
         </v-expansion-panel-text>
       </v-expansion-panel>
-    </v-expansion-panels>
+    </v-expansion-panels> -->
   </ul>
 </template>
 

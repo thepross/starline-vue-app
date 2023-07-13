@@ -107,9 +107,9 @@ const newProject = {
       <AnalyticsDepositWithdraw />
     </VCol> -->
 
-    <VCol cols="12">
+    <!-- <VCol cols="12">
       <AnalyticsDatatable />
-    </VCol>
+    </VCol> -->
   </VRow>
 </template>
 

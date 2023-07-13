@@ -1,8 +1,8 @@
-<script setup>
-import { useTheme } from 'vuetify'
+<script setup lang="ts">
 import triangleDark from '@/assets/images/misc/triangle-dark.png'
 import triangleLight from '@/assets/images/misc/triangle-light.png'
-import trophy from '@/assets/images/misc/trophy.png'
+import { computed } from 'vue'
+import { useTheme } from 'vuetify'
 
 const vuetifyTheme = useTheme()
 const welcome = computed(() => {
@@ -27,7 +27,7 @@ const triangleBg = computed(() => {
         {{ cant }}
       </h5>
       <p>78%</p>
-      <VBtn size="small">
+      <VBtn size="small" @click="crear()">
         Crear Imágenes
       </VBtn>
     </VCardText>
@@ -56,3 +56,23 @@ const triangleBg = computed(() => {
   inset-inline-end: 2rem;
 }
 </style>
+
+
+<script lang="ts">
+
+export default {
+  data: function() {
+    return {
+
+    }
+  },
+
+  methods: {
+    crear() {
+      this.$router.push('/crear-imagen');
+    }
+  }
+}
+
+</script>
+
