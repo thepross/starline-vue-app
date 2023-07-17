@@ -29,8 +29,9 @@ const corsOptions = {
   },
 };
 // Enable preflight requests for all routes
-app.options('*', cors(corsOptions));
+// app.options('*', cors(corsOptions));
 
+app.use(cors());
 app.use(serveStatic(path.join(__dirname, 'dist')));
 const port = process.env.PORT || 5000;
 app.listen(port);
