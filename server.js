@@ -13,8 +13,9 @@ const allowedOrigins = [
     'http://localhost:8080',
     'http://localhost:8100',
     'http://localhost:5000',
-    'https://boiling-stream-56078-74a8b7e826b3.herokuapp.com/',
-
+    'https://localhost:5000',
+    'https://boiling-stream-56078-74a8b7e826b3.herokuapp.com',
+    'https://aef1-177-222-111-223.ngrok-free.app',
   ];
 
   // Reflect the origin if it's in the allowed list or not defined (cURL, Postman, etc.)
