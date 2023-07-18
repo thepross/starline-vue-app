@@ -48,8 +48,13 @@ export default {
 
   methods: {
     getGeneraciones() {
+      const config = {
+        headers:{
+          'ngrok-skip-browser-warning': '1'
+        }
+      };
       axios
-        .get(this.url + "/ping")
+        .get(this.url + "/ping", config)
         .then((res) => {
           // this.generaciones = res.data.generaciones;
           console.log("asdasdasdasdasdasd")
