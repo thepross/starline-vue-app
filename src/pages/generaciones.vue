@@ -48,9 +48,10 @@ export default {
   methods: {
     getGeneraciones() {
       axios
-        .get(Constants.URL_BACK + "/generaciones")
+        .get(Constants.URL_BACK + "/ping")
         .then((res) => {
-          this.generaciones = res.data.generaciones;
+          // this.generaciones = res.data.generaciones;
+          console.log("asdasdasdasdasdasd")
         })
         .catch((error) => {
           console.error(error);
