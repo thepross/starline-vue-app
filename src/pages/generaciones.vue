@@ -42,14 +42,15 @@ export default {
       generaciones: [],
       message: "",
       showMessage: false,
-    };
+    }
   },
 
   methods: {
     getGeneraciones() {
       const config = {
         headers:{
-          'ngrok-skip-browser-warning': '1'
+          'ngrok-skip-browser-warning': '1',
+          'Content-Type': 'multipart/form-data',
         }
       };
       axios
