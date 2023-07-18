@@ -54,7 +54,7 @@ export default {
         }
       };
       axios
-        .get(Constants.URL_BACK + "/generaciones", config)
+        .get(Constants.URL_BACK + "/generaciones/", config)
         .then(res => {
           this.generaciones = res.data.generaciones;
         })
