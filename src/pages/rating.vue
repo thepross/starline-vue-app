@@ -128,8 +128,13 @@ import Constants from './Constants';
             a.click()
         },
     },
-    created() {        
-        axios.get(this.url + "/imagen/show/" + localStorage.getItem('id_imagen'))
+    created() {    
+      const config = {
+        headers:{
+          'ngrok-skip-browser-warning': '1'
+        }
+      };    
+        axios.get(this.url + "/imagen/show/" + localStorage.getItem('id_imagen'), config)
         .then((res) => {
             this.imagen = res.data.imagenes[0]
             this.rating = this.imagen.rating

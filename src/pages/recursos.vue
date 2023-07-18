@@ -90,8 +90,13 @@ export default {
 
   methods: {
     getImagenes() {
+      const config = {
+        headers:{
+          'ngrok-skip-browser-warning': '1'
+        }
+      };
       axios
-        .get(Constants.URL_BACK + '/imagen/recursos/' + localStorage.getItem('id'))
+        .get(Constants.URL_BACK + '/imagen/recursos/' + localStorage.getItem('id'), config)
         .then(res => {
           this.imagenes = res.data.imagenes
         })

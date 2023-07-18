@@ -79,12 +79,14 @@ export default {
 
   methods: {
     getImagenes() {
+      const config = {
+        headers:{
+          'ngrok-skip-browser-warning': '1',
+          'Content-Type': 'multipart/form-data',
+        }
+      };
       axios
-        .get(Constants.URL_BACK + '/imagen/' + localStorage.getItem('id'), {
-          headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-        })
+        .get(Constants.URL_BACK + '/imagen/' + localStorage.getItem('id'), config)
         .then(res => {
           this.imagenes = res.data.imagenes
         })

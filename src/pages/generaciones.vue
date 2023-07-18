@@ -54,10 +54,9 @@ export default {
         }
       };
       axios
-        .get(this.url + "/ping", config)
+        .get(this.url + "/generaciones", config)
         .then((res) => {
-          // this.generaciones = res.data.generaciones;
-          console.log("asdasdasdasdasdasd")
+          this.generaciones = res.data.generaciones;
         })
         .catch((error) => {
           console.error(error);
