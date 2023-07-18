@@ -545,7 +545,7 @@ export default {
         let payload = new FormData()
         payload.append('id_generacion', id_generacion + "")
         payload.append('estilo', this.acti + "")
-      for (let index = 1; index <= 1; index++) {
+      for (let index = 1; index <= 4; index++) {
         const result2 = await axios
           .post(Constants.URL_BACK + '/generar/', payload, {
             headers: {
