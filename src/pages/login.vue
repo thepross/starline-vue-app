@@ -189,12 +189,20 @@ import Constants from './Constants'
       }
     },
     methods: {
-      login() {
+      async login() {
+        let loader = this.$loading.show({
+            container: null,
+            canCancel: false,
+            color: '#9155FD',
+            loader: 'spinner',
+            width: 44,
+            height: 44,
+        });
         let payload = {
           "user": this.user,
           "password": this.password,
         };
-        axios.post(this.url + "/login", payload)
+        await axios.post(this.url + "/login", payload)
         .then((res) => {
           if (res.data.status == "ok") {
             localStorage.id = res.data.user.id;
@@ -207,6 +215,7 @@ import Constants from './Constants'
           }
           console.log(res.data.status)
         });
+        loader.hide();
       }
     },
     created() {

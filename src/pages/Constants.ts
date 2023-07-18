@@ -6,9 +6,8 @@ export default {
     API_URL_GENERACIONES: "http://127.0.0.1:5000/generaciones",
     API_URL_1: "http://127.0.0.1:5000",
     API_URL_2: "http://127.0.0.1:5000",
-    // URL_BACK: "https://974b-177-222-111-223.ngrok-free.app"
 
-    URL_BACK: "https://43e0-177-222-111-223.ngrok-free.app"
+    URL_BACK: "https://1510-177-222-111-223.ngrok-free.app"
 
     // URL_BACK: "http://127.0.0.1:5000"
   }

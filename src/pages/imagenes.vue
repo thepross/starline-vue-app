@@ -1,16 +1,32 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+// import { ref, watch } from 'vue';
+
+// const page = ref(1)
+// const data = ref(null)
+// watch(page, async () => {
+//   const response = await fetch(
+//     `https://jsonplaceholder.typicode.com/todos/${page.value}`
+//   )
+//   data.value = await response.json()
+//   console.log(data.value)
+// }, { immediate: true })
+
+</script>
 
 <template>
   <VRow>
     <VCol cols="12">
-      <VCard title="Mis Imágenes">
+      <VCard title="Mis Imágenes" v-show="!isLoading" style="border: 2px #c7abff solid;">
         <VCardText> Aquí estan tus imágenes generadas. </VCardText>
         <v-container>
           <v-row>
             <v-col
               v-for="imagen in imagenes"
               :key="imagen.id"
-              :cols="3"
+              :cols="2"
+              :lg="2"
+              :md="4"
+              :sm="3"
             >
               <v-hover v-slot="{ isHovering, props }">
                 <v-card
@@ -27,28 +43,24 @@
                     <v-card-title class="text-white">ID Imagen: {{ imagen.id }}</v-card-title>
                   </v-img>
 
-                  <v-card-actions>
-                    <v-spacer>ID Generación: {{ imagen.id_generacion }}</v-spacer>
-
+                  <v-card-actions class="justify-center">
                     <v-btn
-                      size="small"
-                      color="surface-variant"
+                      color="primary"
                       variant="text"
                       icon="mdi-information"
                       @click="mostrar(imagen.id)"
-                    ></v-btn>
+                    >
+                  </v-btn>
 
                     <v-btn
-                      size="small"
-                      color="surface-variant"
+                      color="primary"
                       variant="text"
                       icon="mdi-download"
                       @click="descargar(imagen.id, imagen.image, imagen.nombre)"
                     ></v-btn>
 
                     <v-btn
-                      size="small"
-                      color="surface-variant"
+                      color="primary"
                       variant="text"
                       icon="mdi-share-variant"
                     ></v-btn>
@@ -57,6 +69,14 @@
               </v-hover>
             </v-col>
           </v-row>
+          <br>
+          <div class="text-center">
+            <v-pagination
+              v-model="page"
+              :length="totalPages"
+              rounded="circle"
+            ></v-pagination>
+          </div>
         </v-container>
       </VCard>
     </VCol>
@@ -74,25 +94,39 @@ export default {
       imagenes: [{ id: 0, ruta: '', nombre: '', size: '', id_generacion: 0, image: '' }],
       message: '',
       showMessage: false,
+      isLoading: true,
+      page: 1,
+      totalPages: 0,
     }
   },
 
   methods: {
-    getImagenes() {
+    async getImagenes() {
+      let loader = this.$loading.show({
+            container: this.$refs.cardGenerador,
+            canCancel: false,
+            color: '#9155FD',
+            loader: 'spinner',
+            width: 44,
+            height: 44,
+      });
       const config = {
         headers:{
           'ngrok-skip-browser-warning': '1',
           'Content-Type': 'multipart/form-data',
         }
       };
-      axios
-        .get(Constants.URL_BACK + '/imagen/' + localStorage.getItem('id'), config)
+      await axios
+        .get(Constants.URL_BACK + '/imagen/' + localStorage.getItem('id') + '/' + this.page, config)
         .then(res => {
           this.imagenes = res.data.imagenes
+          this.totalPages = res.data.pages
         })
         .catch(error => {
           console.error(error)
         })
+      loader.hide();
+      this.isLoading = false;
     },
     descargar(id: number, ruta: string, nombre: string) {
       var a = document.createElement('a')
@@ -106,8 +140,18 @@ export default {
     },
   },
   created() {
-    this.getImagenes()
+    //this.getImagenes()
   },
+  watch: {
+    page: {
+      handler(val) {
+        this.page = val;
+        this.getImagenes();
+      },
+      immediate: true,
+    }
+  }
+  
 }
 
 </script>

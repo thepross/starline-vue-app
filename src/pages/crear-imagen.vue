@@ -8,8 +8,8 @@ import e3 from '@/assets/images/pages/estilo3.jpg';
 <template>
   <VRow>
     <VCol cols="12">
-      <VCard title="Creacion de imagenes">
-        <VCardText> crea tus imagenes! </VCardText>
+      <VCard title="Creación de Imagenes" style="border: 2px #c7abff solid;">
+        <VCardText> Crea tus Imagenes con estilos unicos y en el menor tiempo posible!, utiliza estas imagenes como plantilla para tu proximo afiche. </VCardText>
 
         <form @submit.prevent="submit">
           <v-container>
@@ -19,7 +19,8 @@ import e3 from '@/assets/images/pages/estilo3.jpg';
                 cols="12"
                 md="4"
               >
-                <VCard title="Entradas">
+                <VCard title="Entradas" color="#f4f0fc">
+                  <VCardText>Aquí van las entradas para nuestra imagen.</VCardText>
                   <v-container>
                     <v-file-input
                       show-size
@@ -69,7 +70,7 @@ import e3 from '@/assets/images/pages/estilo3.jpg';
                 cols="12"
                 md="4"
               >
-                <VCard title="Resultado">
+                <VCard title="Resultado" color="#f4f0fc">
                   <VCardText>Aqui se muestran las imagenes como resultado de las entradas y estilos.</VCardText>
                   <v-container>
                     <v-row>
@@ -95,12 +96,25 @@ import e3 from '@/assets/images/pages/estilo3.jpg';
                                 variant="text"
                                 :class="{ 'show-btns': isHovering }"
                                 color="#a3a3a3"
-                                v-if="isHovering && !loadImagen1"
+                                v-if="isHovering && imagenB1 != ''"
                                 :icon="icon"
+                                @click="index == 0 ? descargar(0, imagenB1, 'poster1') : mostrar(id1)"
                               ></v-btn>
                             </div>
-                            
-                        <template v-if="showLoading">
+
+                            <template v-if="imagenB1 == '' && !loadingImagen1">
+                              <v-row
+                                class="fill-height ma-0"
+                                align="center"
+                                justify="center"
+                              >
+                              <VIcon
+                                  v-bind="{ icon: 'mdi-image' }"
+                                  class="nav-item-icon"
+                              />
+                              </v-row>
+                            </template>
+                        <template v-if="loadingImagen1">
                             <v-row
                               class="fill-height ma-0"
                               align="center"
@@ -112,18 +126,7 @@ import e3 from '@/assets/images/pages/estilo3.jpg';
                               ></v-progress-circular>
                             </v-row>
                         </template>
-                          <template v-if="loadImagen1">
-                            <v-row
-                              class="fill-height ma-0"
-                              align="center"
-                              justify="center"
-                            >
-                            <VIcon
-                                v-bind="{ icon: 'mdi-image' }"
-                                class="nav-item-icon"
-                            />
-                            </v-row>
-                          </template>
+                        
                         </v-img>
 
                         </v-card>
@@ -153,24 +156,12 @@ import e3 from '@/assets/images/pages/estilo3.jpg';
                                 variant="text"
                                 :class="{ 'show-btns': isHovering }"
                                 color="#a3a3a3"
-                                v-if="isHovering && !loadImagen2"
+                                v-if="isHovering && imagenB2 != ''"
                                 :icon="icon"
                               ></v-btn>
                             </div>
                             
-                        <template v-if="showLoading">
-                            <v-row
-                              class="fill-height ma-0"
-                              align="center"
-                              justify="center"
-                            >
-                              <v-progress-circular
-                                indeterminate
-                                color="grey-lighten-5"
-                              ></v-progress-circular>
-                            </v-row>
-                        </template>
-                          <template v-if="loadImagen2">
+                            <template v-if="imagenB2 == '' && !loadingImagen2">
                             <v-row
                               class="fill-height ma-0"
                               align="center"
@@ -182,6 +173,19 @@ import e3 from '@/assets/images/pages/estilo3.jpg';
                             />
                             </v-row>
                           </template>
+                        <template v-if="loadingImagen2">
+                            <v-row
+                              class="fill-height ma-0"
+                              align="center"
+                              justify="center"
+                            >
+                              <v-progress-circular
+                                indeterminate
+                                color="grey-lighten-5"
+                              ></v-progress-circular>
+                            </v-row>
+                        </template>
+                          
                         </v-img>
                           
                         </v-card>
@@ -209,12 +213,24 @@ import e3 from '@/assets/images/pages/estilo3.jpg';
                                 variant="text"
                                 :class="{ 'show-btns': isHovering }"
                                 color="#a3a3a3"
-                                v-if="isHovering && !loadImagen3"
+                                v-if="isHovering && imagenB3 != ''"
                                 :icon="icon"
                               ></v-btn>
                             </div>
                             
-                        <template v-if="showLoading">
+                            <template v-if="imagenB3 == '' && !loadingImagen3">
+                              <v-row
+                                class="fill-height ma-0"
+                                align="center"
+                                justify="center"
+                              >
+                              <VIcon
+                                  v-bind="{ icon: 'mdi-image' }"
+                                  class="nav-item-icon"
+                              />
+                              </v-row>
+                            </template>
+                        <template v-if="loadingImagen3">
                             <v-row
                               class="fill-height ma-0"
                               align="center"
@@ -226,18 +242,6 @@ import e3 from '@/assets/images/pages/estilo3.jpg';
                               ></v-progress-circular>
                             </v-row>
                         </template>
-                          <template v-if="loadImagen3">
-                            <v-row
-                              class="fill-height ma-0"
-                              align="center"
-                              justify="center"
-                            >
-                            <VIcon
-                                v-bind="{ icon: 'mdi-image' }"
-                                class="nav-item-icon"
-                            />
-                            </v-row>
-                          </template>
                         </v-img>
                           
                         </v-card>
@@ -265,12 +269,24 @@ import e3 from '@/assets/images/pages/estilo3.jpg';
                                 variant="text"
                                 :class="{ 'show-btns': isHovering }"
                                 color="#202020"
-                                v-if="isHovering && !loadImagen4"
+                                v-if="isHovering && imagenB4 != ''"
                                 :icon="icon"
                               ></v-btn>
                             </div>
                             
-                        <template v-if="showLoading">
+                            <template v-if="imagenB4 == '' && !loadingImagen4">
+                              <v-row
+                                class="fill-height ma-0"
+                                align="center"
+                                justify="center"
+                              >
+                              <VIcon
+                                  v-bind="{ icon: 'mdi-image' }"
+                                  class="nav-item-icon"
+                              />
+                              </v-row>
+                            </template>
+                        <template v-if="loadingImagen4">
                             <v-row
                               class="fill-height ma-0"
                               align="center"
@@ -282,18 +298,6 @@ import e3 from '@/assets/images/pages/estilo3.jpg';
                               ></v-progress-circular>
                             </v-row>
                         </template>
-                          <template v-if="loadImagen4">
-                            <v-row
-                              class="fill-height ma-0"
-                              align="center"
-                              justify="center"
-                            >
-                            <VIcon
-                                v-bind="{ icon: 'mdi-image' }"
-                                class="nav-item-icon"
-                            />
-                            </v-row>
-                          </template>
                         </v-img>
                           
                         </v-card>
@@ -310,7 +314,7 @@ import e3 from '@/assets/images/pages/estilo3.jpg';
                 md="4"
               >
 
-                <VCard title="Estilos">
+                <VCard title="Estilos" color="#f4f0fc">
                   <VCardText> Aqui se muestran los estilos de las imagenes, selecciona alguno:</VCardText>
                   <v-container>
                     <v-row>
@@ -342,10 +346,13 @@ import e3 from '@/assets/images/pages/estilo3.jpg';
                         <v-btn
                           class="ma-4"
                           type="submit"
+                          size="large"
+                          prepend-icon="mdi-cached"
                           >Generar</v-btn
                         >
                         <v-btn
                           class="ma-4"
+                          size="large"
                           @click="clear"
                           >Limpiar</v-btn
                         >
@@ -364,7 +371,11 @@ import e3 from '@/assets/images/pages/estilo3.jpg';
 
 <script lang="ts">
 import axios from 'axios';
+import { useToast } from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
 import Constants from './Constants';
+
+const $toast = useToast()
 
 export default {
   name: 'crear-imagen',
@@ -400,10 +411,14 @@ export default {
     imagenB3: "",
     imagenB4: "",
     showLoading: false,
-    loadImagen1: true,
-    loadImagen2: true,
-    loadImagen3: true,
-    loadImagen4: true,
+    loadingImagen1: false,
+    loadingImagen2: false,
+    loadingImagen3: false,
+    loadingImagen4: false,
+    id1: 0,
+    id2: 0,
+    id3: 0,
+    id4: 0,
     rating: 1,
 
         model: 0,
@@ -489,6 +504,10 @@ export default {
       this.imagenB4 = ""
       this.progressBar = true
       this.showLoading = true
+      this.loadingImagen1 = true
+      this.loadingImagen2 = true
+      this.loadingImagen3 = true
+      this.loadingImagen4 = true
       let formData = new FormData()
 
       let id_user = localStorage.getItem('id')
@@ -516,10 +535,17 @@ export default {
             console.log(e)
           })
 
+          let instance2 = $toast.open({
+            message: 'Generando imágenes...',
+            type: 'info',
+            position: 'top-right',
+            duration: 20000,
+          })
+
         let payload = new FormData()
         payload.append('id_generacion', id_generacion + "")
         payload.append('estilo', this.acti + "")
-      for (let index = 1; index <= 4; index++) {
+      for (let index = 1; index <= 1; index++) {
         const result2 = await axios
           .post(Constants.URL_BACK + '/generar/', payload, {
             headers: {
@@ -529,30 +555,51 @@ export default {
           .then(response => {
             for (let i = 0; i < response.data.generaciones.length; i++) {
               this.imageBytes = response.data.generaciones[i]
+              console.log(response.data.id)
               if (index === 1) {
                 this.imagenB1 = 'data:image/jpeg;base64,' + this.imageBytes
-                this.loadImagen1 = false
+                this.id1 = response.data.id
+                this.loadingImagen1 = false
               } else if (index === 2) {
                 this.imagenB2 = 'data:image/jpeg;base64,' + this.imageBytes
-                this.loadImagen2 = false
+                this.id2 = response.data.id
+                this.loadingImagen2 = false
               } else if (index === 3) {
                 this.imagenB3 = 'data:image/jpeg;base64,' + this.imageBytes
-                this.loadImagen3 = false
+                this.id3 = response.data.id
+                this.loadingImagen3 = false
               } else {
                 this.imagenB4 = 'data:image/jpeg;base64,' + this.imageBytes
-                this.loadImagen4 = false
+                this.id4 = response.data.id
+                this.loadingImagen4 = false
               }
-
             }
             // this.progressBar = false
           }).catch(() => {
             this.showLoading = false;
+            if (index === 1) {
+                this.loadingImagen1 = false
+              } else if (index === 2) {
+                this.loadingImagen2 = false
+              } else if (index === 3) {
+                this.loadingImagen3 = false
+              } else {
+                this.loadingImagen4 = false
+              }
           })
 
         await new Promise(resolve => setTimeout(resolve, 1000))
         console.log('index: ' + index)
       }
+      instance2.dismiss();
+      
       this.showLoading = false;
+      let instance = $toast.open({
+        message: 'Generado correctamente.',
+        type: 'success',
+        duration: 4000,
+        position: 'top-right'
+      })
     },
     clear() {
       this.addForm.texto1 = ''
@@ -562,6 +609,24 @@ export default {
       this.addForm.imagen2 = null
       this.addForm.imagen3 = null
     },
+
+    mostrar(id: number) {
+      localStorage.id_imagen = id
+      this.$router.push('/rating');
+    },
+    descargar(id: number, ruta: string, nombre: string) {
+      let toastDownload = $toast.open({
+        message: 'Descargando imagen...',
+        type: 'info',
+        duration: 4000,
+        position: 'top-right'
+      })
+      var a = document.createElement('a')
+      a.href = ruta
+      a.download = nombre + '.png'
+      a.click()
+    },
+
   },
 
   created() {
