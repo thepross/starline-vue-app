@@ -3,7 +3,7 @@
 <template>
   <VRow>
     <VCol cols="12">
-      <VCard title="Mis Imágenes" v-show="!isLoading" style="border: 2px #c7abff solid;">
+      <VCard title="Recursos" v-show="!isLoading" style="border: 2px #c7abff solid;">
         <VCardText> Aquí se muestran los recursos utilizados para generar imágenes. </VCardText>
         <v-container>
           <v-row>

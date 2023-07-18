@@ -189,7 +189,7 @@ import Constants from './Constants'
       }
     },
     methods: {
-      register() {
+      async register() {
         let loader = this.$loading.show({
             container: null,
             canCancel: false,
@@ -204,7 +204,7 @@ import Constants from './Constants'
           "email": this.email,
         };
         console.log(payload)
-        axios.post(Constants.URL_BACK + "/register", payload)
+        await axios.post(Constants.URL_BACK + "/register", payload)
         .then((res) => {
           if (res.data.status == "ok") {
             localStorage.registered = 1
