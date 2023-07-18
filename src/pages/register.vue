@@ -186,18 +186,25 @@ import Constants from './Constants'
         privacyPolicies: false,
         error: false, 
         message: "",
-        url: Constants.URL_BACK,
       }
     },
     methods: {
       register() {
+        let loader = this.$loading.show({
+            container: null,
+            canCancel: false,
+            color: '#9155FD',
+            loader: 'spinner',
+            width: 44,
+            height: 44,
+        });
         let payload = {
           "user": this.username,
           "password": this.password,
           "email": this.email,
         };
         console.log(payload)
-        axios.post(this.url + "/register", payload)
+        axios.post(Constants.URL_BACK + "/register", payload)
         .then((res) => {
           if (res.data.status == "ok") {
             localStorage.registered = 1
@@ -207,10 +214,11 @@ import Constants from './Constants'
             this.$router.push('/login');
           } else {
             this.error = true;
-            this.message = res.data.mensaje;
           }
           console.log(res.data.status)
+          console.log(res.data.message)
         });
+        loader.hide();
       }
     }
 
