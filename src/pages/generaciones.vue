@@ -22,7 +22,7 @@ import axios from "axios";
 import Constants from './Constants';
 
 export default {
-  data() {
+  data:function() {
     return {
       activeAddBookModal: false,
       addGeneracionForm: {
@@ -42,13 +42,14 @@ export default {
       generaciones: [],
       message: "",
       showMessage: false,
+      url: Constants.URL_BACK,
     };
   },
 
   methods: {
     getGeneraciones() {
       axios
-        .get(Constants.URL_BACK + "/ping")
+        .get(this.url + "/ping")
         .then((res) => {
           // this.generaciones = res.data.generaciones;
           console.log("asdasdasdasdasdasd")
